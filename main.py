@@ -10,8 +10,10 @@ load_dotenv()
 # 環境変数からトークンを読み込む
 DISCORD_BOT_TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 
+
 # Discord Botのセットアップ
-bot = commands.Bot(command_prefix='!')
+intents = discord.Intents.default()
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 # サービスを制御する関数
 def control_service(action, service_name):
