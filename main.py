@@ -13,6 +13,8 @@ DISCORD_BOT_TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 
 # Discord Botのセットアップ
 intents = discord.Intents.default()
+intents.messages = True
+intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 # サービスを制御する関数
