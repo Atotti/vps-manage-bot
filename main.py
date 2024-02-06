@@ -19,10 +19,10 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 # サービスを制御する関数
 def control_service(action, service_name):
-    subprocess.run(['sudo', 'systemctl', action, service_name], check=True)
+    subprocess.run(['/usr/bin/sudo', 'systemctl', action, service_name], check=True)
 
 def check_service_status(service_name):
-    result = subprocess.run(['sudo', 'systemctl', 'is-active', service_name], stdout=subprocess.PIPE, text=True)
+    result = subprocess.run(['/usr/bin/sudo', 'systemctl', 'is-active', service_name], stdout=subprocess.PIPE, text=True)
     return result.stdout.strip()  # 'active', 'inactive', 'failed'などの状態を返す
 
 
