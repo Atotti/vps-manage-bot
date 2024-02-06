@@ -30,7 +30,7 @@ def check_service_status(service_name):
 @bot.command()
 async def start_minecraft(ctx):
     # Palworldサーバーを停止
-    control_service('stop', 'palworld.service')
+    control_service('stop', 'palworld-dedicated.service')
     # Minecraftサーバーを起動
     control_service('start', 'minecraft.service')
     await ctx.send('Minecraftサーバーを起動しました。')
@@ -41,14 +41,14 @@ async def start_palworld(ctx):
     # Minecraftサーバーを停止
     control_service('stop', 'minecraft.service')
     # Palworldサーバーを起動
-    control_service('start', 'palworld.service')
+    control_service('start', 'palworld-dedicated.service')
     await ctx.send('Palworldサーバーを起動しました。')
 
 # サービスの状態を確認するコマンド
 @bot.command()
 async def check_services(ctx):
     minecraft_status = check_service_status('minecraft.service')
-    palworld_status = check_service_status('palworld.service')
+    palworld_status = check_service_status('palworld-dedicated.service')
     
     message = f"Minecraftサーバーの状態: {minecraft_status}\nPalworldサーバーの状態: {palworld_status}"
     await ctx.send(message)
