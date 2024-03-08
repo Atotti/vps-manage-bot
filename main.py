@@ -26,20 +26,35 @@ def check_service_status(service_name):
     return result.stdout.strip()  # 'active', 'inactive', 'failed'などの状態を返す
 
 
-# Minecraftサーバーを起動するコマンド
+# 生活鯖を起動するコマンド
 @bot.command()
 async def start_minecraft(ctx):
     # Palworldサーバーを停止
     control_service('stop', 'palworld-dedicated.service')
-    # Minecraftサーバーを起動
+    # 人狼サーバーを停止
+    control_service('stop', 'minecraft-werewolf.service')
+    # 生活鯖を起動
     control_service('start', 'minecraft.service')
+    await ctx.send('Minecraftサーバーを起動しました。')
+
+# 人狼サーバーを起動するコマンド
+@bot.command()
+async def start_minecraft(ctx):
+    # Palworldサーバーを停止
+    control_service('stop', 'palworld-dedicated.service')
+    # 生活鯖を停止
+    control_service('stop', 'minecraft.service')
+    # 人狼サーバーを起動
+    control_service('start', 'minecraft-werewolf.service')
     await ctx.send('Minecraftサーバーを起動しました。')
 
 # Palworldサーバーを起動するコマンド
 @bot.command()
 async def start_palworld(ctx):
-    # Minecraftサーバーを停止
+    # 生活鯖を停止
     control_service('stop', 'minecraft.service')
+    # 人狼サーバーを停止
+    control_service('stop', 'minecraft-werewolf.service')
     # Palworldサーバーを起動
     control_service('start', 'palworld-dedicated.service')
     await ctx.send('Palworldサーバーを起動しました。')
@@ -49,8 +64,9 @@ async def start_palworld(ctx):
 async def check_services(ctx):
     minecraft_status = check_service_status('minecraft.service')
     palworld_status = check_service_status('palworld-dedicated.service')
+    wordwolf_status = check_service_status('minecraft-werewolf.service')
     
-    message = f"Minecraftサーバーの状態: {minecraft_status}\nPalworldサーバーの状態: {palworld_status}"
+    message = f"Minecraftサーバーの状態: {minecraft_status}\nPalworldサーバーの状態: {palworld_status}\n 人狼サーバーの状態: {wordwolf_status}"
     await ctx.send(message)
 
 # Botを起動
